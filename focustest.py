@@ -49,6 +49,7 @@ foc_but.grid(column = 2, row = 1, sticky = (W, E))
 def focus(event):
 	focused_widget = frame.focus_get()
 	foc_labvar.set(focused_widget, "has focus")
+	print(focused_widget, "has focus")
 
 # Bind mouse click to run focus command
 root.bind("<Button-1>", focus)
