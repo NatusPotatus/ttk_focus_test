@@ -27,15 +27,31 @@ for col in range(1, 3):
 for row in range(1, 3):
 	frame.rowconfigure(row, weight = 1)
 
-# Add a text field that responds to where focus has been placed
-foc_val = StringVar()
-foc_val.set("No focus")
-foc_view = ttk.Entry(frame, width = 7, textvariable = foc_val)
-foc_view.grid(column = 1, row = 1, sticky = (W, E))
+# Add response label
+foc_labvar = StringVar()
+foc_labvar.set("No focus")
+foc_lab = ttk.Label(frame, width = 7, textvariable = foc_labvar)
+foc_lab.grid(column = 2, row = 2, sticky = (W, E))
+
+# Add entry box
+foc_entvar = StringVar()
+foc_entvar.set("Entry widget")
+foc_ent = ttk.Entry(frame, width = 7, textvariable = foc_entvar)
+foc_ent.grid(column = 1, row = 1, sticky = (W, E))
+
+# Add button
+foc_butvar = StringVar()
+foc_butvar.set("Button widget")
+foc_but = ttk.Button(frame, width = 7, textvariable = foc_butvar)
+foc_but.grid(column = 2, row = 1, sticky = (W, E))
 
 # Focus commands
-foc_view.bind("<FocusIn>", foc_val.set("Focus in"))
-foc_view.bind("<FocusOut>", foc_val.set("Focus out"))
+def focus(event):
+	focused_widget = frame.focus_get()
+	print(focused_widget, "has focus")
+
+# Bind mouse click to run focus command
+root.bind("<Button-1>", focus)
 
 # Resize widgets inside frame
 for child in frame.winfo_children():
