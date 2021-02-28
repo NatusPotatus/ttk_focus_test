@@ -3,13 +3,6 @@
 from tkinter import *
 from tkinter import ttk
 
-"""
-TODO:
-Have the entry field change when it gains and loses focus from the user.
-Add different widgets that can 'gain' focus.
-Change the entry text depending on which widget has focus.
-"""
-
 # Develop the window and frame
 root = Tk()
 root.title("Focus Test")
@@ -47,12 +40,15 @@ foc_but.grid(column = 2, row = 1, sticky = (W, E))
 
 # Focus commands
 def focus(event):
-	focused_widget = frame.focus_get()
-	foc_labvar.set((focused_widget, "has focus"))
+	focused_widget = event.widget.winfo_class()[1:]
+	foc_labvar.set(focused_widget + " has focus")
+	foc_entvar.set(focused_widget + " has focus")
 	print(focused_widget, "has focus")
 
-# Bind mouse click to run focus command
+# Bind mouse and keyboard to run focus command
 root.bind("<Button-1>", focus)
+root.bind("<FocusIn>", focus)
+root.bind("<FocusOut>", focus)
 
 # Resize widgets inside frame
 for child in frame.winfo_children():
